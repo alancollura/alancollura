@@ -208,3 +208,25 @@ body{background:var(--paper);color:var(--ink)}
 
 /* SEO clarity: the person's full name is visibly part of the homepage H1. */
 .ac-hero h1 .ac-hero-name{display:block;font:800 clamp(14px,1.25vw,17px)/1.25 Inter,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#d9e5ff;margin-bottom:18px;}
+
+
+/* Google Analytics consent UI — loaded only after opt-in */
+.ac-cookie-banner{position:fixed;z-index:10000;left:16px;right:16px;bottom:16px;max-width:880px;margin:0 auto;background:#101c31;border:1px solid #3a4c6b;border-radius:18px;box-shadow:0 16px 65px #030711aa;padding:23px 25px;color:#eef4ff;display:flex;align-items:center;gap:24px;font-family:inherit}
+.ac-cookie-copy{flex:1;min-width:0}
+.ac-cookie-badge{font-size:10px;letter-spacing:.14em;font-weight:750;color:#a9caff;margin-bottom:9px}
+.ac-cookie-copy strong{display:block;font-size:17px;line-height:1.35;color:#fff;margin-bottom:7px}
+.ac-cookie-copy p{font-size:13px;line-height:1.55;color:#c9d5e7;margin:0}
+.ac-cookie-copy a{color:#e1f1ff;text-decoration:underline;text-underline-offset:3px}
+.ac-cookie-actions{display:flex;flex-shrink:0;gap:10px}
+.ac-cookie-actions button{cursor:pointer;padding:13px 19px;min-width:94px;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;line-height:1;transition:transform .15s,background .15s}
+.ac-cookie-actions button:focus-visible,.ac-footer-cookie-link:focus-visible,.ac-cookie-privacy-button:focus-visible{outline:3px solid #8cafff;outline-offset:3px}
+.ac-cookie-actions button:hover{transform:translateY(-2px)}
+.ac-cookie-no{background:transparent;color:#f5f7ff;border:1px solid #8795aa}
+.ac-cookie-yes{background:#a6ff44;color:#102015;border:1px solid #a6ff44}
+.ac-footer-cookie-link{background:none;border:0;color:inherit;text-align:left;cursor:pointer;font:inherit;padding:0;opacity:.8}
+.ac-footer-cookie-link:hover{text-decoration:underline;opacity:1}
+.ac-cookie-privacy-button{background:transparent;border:1px solid #627ba1;border-radius:8px;color:#23345a;padding:8px 13px;cursor:pointer;font-weight:700}
+.ac-cookie-privacy-button:hover{background:#e7ecf6}
+@media(max-width:690px){.ac-cookie-banner{bottom:10px;left:10px;right:10px;padding:18px;display:block;border-radius:14px}.ac-cookie-copy strong{font-size:16px}.ac-cookie-copy p{font-size:12px}.ac-cookie-actions{margin-top:14px;display:grid;grid-template-columns:1fr 1fr}.ac-cookie-actions button{padding:13px 10px}}
+@media(prefers-reduced-motion:reduce){.ac-cookie-actions button{transition:none}.ac-cookie-actions button:hover{transform:none}}
+

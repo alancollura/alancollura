@@ -1,4 +1,4 @@
-/* No tracking or cookies. Accessible navigation only. */
+/* Site navigation; analytics consent handled separately in /assets/analytics.js. */
 (() => {
   const button = document.querySelector('.menu-toggle');
   const mobileNav = document.getElementById('mobile-nav');

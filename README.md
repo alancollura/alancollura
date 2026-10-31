@@ -1,6 +1,19 @@
+# AGGIORNAMENTO GA4 — alancollura.com
+
+- ID Google Analytics: `G-PPYNVNX592`.
+- Implementazione in `assets/analytics.js`: il codice Google è caricato **solo dopo il clic su Accetta** nel banner di consenso. Prima della scelta o dopo Rifiuta, non viene richiesta la libreria Google e non vengono installati cookie di analytics.
+- `assets/analytics.js` è inserito in tutte le pagine in `<head>` con `defer`; rigenerando con `python build_site.py`, il riferimento rimane presente.
+- Banner con pulsanti **Accetta** e **Rifiuta** e possibilità di cambiare idea da **Preferenze cookie** nel footer o nella pagina `/privacy/`.
+- Informativa aggiornata per descrivere Analytics e consenso. **Completa comunque i dati del titolare, i contatti privacy e fai verificare la parte legale prima della pubblicazione.**
+- Nessun cambio a DNS, Namecheap, sitemap, URL e dominio principale.
+- Come test: apri il sito in navigazione privata, rifiuta e verifica che GA4 non riceva richieste; poi accetta e guarda la sezione Tempo reale su Google Analytics dopo aver navigato un po'. Se c'è un ad blocker, la richiesta potrebbe essere bloccata.
+- Per aggiornare il sito esistente: estrai questo archivio e sostituisci i file del repository GitHub con il contenuto estratto, inclusi `assets/analytics.js`, `assets/styles.css` e `build_site.py`. Pubblica con commit; Vercel effettua il deploy se l'integrazione GitHub è attiva.
+
+---
+
 # ALAN COLLURA — EDIZIONE 02 / VIDEO + MOTION + SEO
 
-**Questo è il sito completo (14 pagine), già pronto per l'aggiornamento del repository GitHub collegato a Vercel.** Homepage riprogettata con video autentico HTML5 sul lato destro (al posto del grande monogramma AC), animazioni di testo, entrate in scroll, microinterazioni, timeline editoriale, caso studio, FAQ leggibili e nuove palette navy / cobalt / lime. Nessun framework, CDN, cookie o installazione.
+**Questo è il sito completo (14 pagine), già pronto per l'aggiornamento del repository GitHub collegato a Vercel.** Homepage riprogettata con video autentico HTML5 sul lato destro (al posto del grande monogramma AC), animazioni di testo, entrate in scroll, microinterazioni, timeline editoriale, caso studio, FAQ leggibili e nuove palette navy / cobalt / lime. Nessun framework né installazione. Google Analytics 4 è caricato solo dopo il consenso esplicito.
 
 ## 🎬 Sostituire l'anteprima video con il tuo filmato
 
@@ -42,7 +55,7 @@ HTML con contenuti completi direttamente nel sorgente (non dipendono dalle anima
 
 # alancollura.com — sito personale / SEO
 
-Sito statico HTML/CSS/JS completo e multipagina, pronto per hosting statico su Vercel (o equivalenti). Nessun framework, nessuna installazione, nessuna dipendenza, nessun cookie o analytics incluso.
+Sito statico HTML/CSS/JS completo e multipagina, pronto per hosting statico su Vercel (o equivalenti). Nessun framework o installazione. Google Analytics 4 con consenso preventivo, implementato in assets/analytics.js.
 
 ## Contenuti inclusi
 
