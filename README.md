@@ -1,3 +1,45 @@
+# ALAN COLLURA — EDIZIONE 02 / VIDEO + MOTION + SEO
+
+**Questo è il sito completo (14 pagine), già pronto per l'aggiornamento del repository GitHub collegato a Vercel.** Homepage riprogettata con video autentico HTML5 sul lato destro (al posto del grande monogramma AC), animazioni di testo, entrate in scroll, microinterazioni, timeline editoriale, caso studio, FAQ leggibili e nuove palette navy / cobalt / lime. Nessun framework, CDN, cookie o installazione.
+
+## 🎬 Sostituire l'anteprima video con il tuo filmato
+
+Lo ZIP include **`assets/alan-intro.mp4`**: un loop motion demo di 8 secondi, creato solo per non lasciare una sezione vuota durante le prove. **Non è un video personale di Alan** e va sostituito con il video montato definitivo.
+
+1. Esporta il tuo montaggio dal programma di editing in **MP4 / H.264**, preferibilmente **verticale 4:5 (1080 × 1350)**, 24–30 fps. Anche il 9:16 è utilizzabile: tieni volti e testo nella zona centrale, poiché `object-fit: cover` può tagliare parte del video.
+2. Assegna al file il nome esatto **`alan-intro.mp4`**.
+3. Sostituisci **`assets/alan-intro.mp4`** mantenendo lo stesso percorso nel repository GitHub. Il video apparirà immediatamente nel riquadro di destra alla successiva pubblicazione Vercel. Non modificare gli URL nel codice.
+4. Facoltativo: sostituisci `assets/video-poster.svg` con una tua locandina (o aggiorna il percorso `poster=` nell'homepage **e nel generatore**). Il poster viene mostrato finché il browser non avvia il video.
+
+**Comportamento già integrato:** autoplay, loop, `muted` e `playsinline` (necessari per la riproduzione automatica sulle principali piattaforme); pulsante **Attiva audio** e pulsante **Schermo intero**. Il video si riproduce **automaticamente senza audio**, perché i browser non permettono di garantire l'autoplay con sonoro. Dopo il clic il visitatore può attivarlo. Chi ha impostato *Riduci movimento* non subisce l'autoplay forzato. Il poster rimane come fallback se il browser blocca la riproduzione.
+
+**Consiglio creativo:** un reel cinematico di 20–35 secondi con te in call, durante sessioni di training, durante analisi di KPI e durante riunioni, con **sottotitoli incorporati**. Montalo pensando al fatto che la prima visione parte senza audio. Per un video definitivo con parlato, predispone anche sottotitoli o una trascrizione accessibile.
+
+## 🧭 Modificare il testo e le animazioni
+
+- Il testo visibile, le pagine e i metadati SEO sono nel generatore **`build_site.py`**. Dopo una modifica al generatore puoi rigenerare le 14 pagine con `python build_site.py` e pubblicare il nuovo commit.
+- Il codice statico della homepage è già in `index.html`: per cambiare solo il video ti basta sostituire il file MP4, senza eseguire Python.
+- Testi che si digitano in sequenza: **`assets/site.js`** → array `words`. Animazioni e colori: **`assets/styles.css`**, sezione `ALAN COLLURA / EDITION 02` in fondo al file.
+- Dati da verificare prima del lancio definitivo: claim top 1%, traguardo aziendale di Inglese per Negati a 1M€/mese e numero di venditori formati. In pagina i risultati sono attribuiti al contesto di squadra, senza garanzie future.
+
+## ▲ Aggiornare il sito GIÀ pubblicato con GitHub e Vercel
+
+1. Estrai lo ZIP sul computer.
+2. Entra nel repository GitHub già collegato al progetto Vercel di `alancollura.com`.
+3. Carica il **contenuto estratto** nella root del repository, **sovrascrivendo** i file omonimi (`index.html`, `assets/styles.css`, `assets/site.js`, `build_site.py`, ecc.) e aggiungendo i nuovi `assets/alan-intro.mp4` e `assets/video-poster.svg`.
+4. Esegui **Commit changes** sul branch di produzione. Vercel pubblicherà automaticamente la nuova versione attraverso l'integrazione GitHub se il deploy automatico è attivo.
+5. Controlla homepage e menu da smartphone, più `https://alancollura.com/sitemap.xml`. **Non cambiare i DNS di Namecheap:** restano quelli già collegati a Vercel.
+
+**Configurazione Vercel:** framework `Other`, root `./`, sito statico, nessun build command, nessuna variabile d'ambiente. `vercel.json` è già incluso (URL puliti e slash finale).
+
+## 🔎 SEO: cosa ho incluso
+
+HTML con contenuti completi direttamente nel sorgente (non dipendono dalle animazioni), H1 unico, titoli e description dedicati, canonical coerenti con `https://alancollura.com/`, tag Open Graph e Twitter, anteprima sociale 1200 × 630, JSON-LD `Person`, `ProfilePage`, `WebSite`, `BreadcrumbList`, `BlogPosting` e FAQ pubbliche, link interni contestuali, 14 pagine indicizzabili, `sitemap.xml`, `robots.txt`, 404 con noindex, CSS e JS locali e rispetto dell'impostazione *Riduci movimento*. Il video demo è leggero (~118 KB).
+
+**Da fare dopo il deploy:** verifica Google Search Console, controlla l'indicizzazione, completa la privacy policy con il titolare corretto, aggiungi progressivamente fonti pubbliche / testimonianze con consenso e, quando disponibile, una foto reale nella biografia. Il sito può migliorare le basi tecniche e editoriali, non garantisce automaticamente posizioni Google.
+
+---
+
 # alancollura.com — sito personale / SEO
 
 Sito statico HTML/CSS/JS completo e multipagina, pronto per hosting statico su Vercel (o equivalenti). Nessun framework, nessuna installazione, nessuna dipendenza, nessun cookie o analytics incluso.
@@ -36,7 +78,7 @@ Ogni pagina è una cartella con `index.html`: gli indirizzi pubblici sono `/chi-
 
 ## Prima di pubblicare: checklist essenziale
 
-- **Foto autentica**: inserisci una fotografia professionale reale di Alan nella homepage e nella pagina bio, con alt text descrittivo, se disponibile. Il design attuale usa un monogramma originale, evitando ritratti generati o foto di persone diverse.
+- **Foto autentica**: se disponibile, inserisci una fotografia professionale reale nella pagina bio. La homepage usa una sezione video modificabile, non un ritratto generato.
 - **Verifica dei claim**: controlla i riferimenti a “top 1%”, alla crescita di Inglese per Negati a 1M€/mese, al numero di professionisti formati e alla descrizione del contributo diretto. Sul sito sono presentati con contesto, non come garanzie. Disponendo di prove, testimonianze attribuite con consenso o fonti pubbliche, è utile aggiungerle alle pagine relative.
 - **Dati legali**: completa la pagina privacy con titolare corretto, dati di contatto privacy e dettagli reali di hosting/log. Se aggiungi analytics, moduli, pixel o cookie, aggiorna informativa e consensi quando richiesto.
 - **Contatti**: al momento il contatto professionale è `info@recuperofatturato.com` (team). Sostituiscilo se attivi un indirizzo personale sul nuovo dominio. **Non** è stato inventato un indirizzo personale non configurato.

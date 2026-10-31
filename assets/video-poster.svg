@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900">
+<defs><radialGradient id="glow" cx="75%" cy="25%" r="80%"><stop stop-color="#3b52a0"/><stop offset=".5" stop-color="#162b4c"/><stop offset="1" stop-color="#081322"/></radialGradient><linearGradient id="stripe" x2="1" y2="1"><stop stop-color="#cbfb8c" stop-opacity=".2"/><stop offset="1" stop-color="#8aafff" stop-opacity="0"/></linearGradient></defs>
+<rect width="720" height="900" fill="url(#glow)"/>
+<g stroke="#c7daff" opacity=".12" fill="none"><circle cx="495" cy="375" r="240"/><circle cx="495" cy="375" r="350"/><circle cx="495" cy="375" r="460"/></g>
+<path d="M-70 235 720-120M-70 310 720-45M-70 385 720 30M-70 460 720 105" stroke="url(#stripe)" stroke-width="2"/>
+<g fill="#fff" font-family="Arial,Helvetica,sans-serif"><text x="62" y="82" font-size="15" font-weight="bold" letter-spacing="4" fill="#d3fba1">ALAN COLLURA</text><text x="62" y="460" font-size="65" font-weight="900" letter-spacing="-3">FROM SALES</text><text x="62" y="531" font-size="65" font-weight="900" letter-spacing="-3" fill="#c7f86f">TO LEADERSHIP.</text><text x="65" y="578" font-size="16" letter-spacing="3" fill="#b9c7e1">THE STORY / MOTION PREVIEW</text><text x="65" y="838" font-size="13" letter-spacing="2" fill="#d3e6fd">VIDEO DIMOSTRATIVO — DA SOSTITUIRE</text></g>
+<rect x="62" y="616" width="80" height="4" fill="#c7f86f"/>
+</svg>

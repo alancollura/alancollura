@@ -3,8 +3,8 @@
   "short_name": "Alan Collura",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#101b20",
-  "theme_color": "#101b20",
+  "background_color": "#0b1321",
+  "theme_color": "#0b1321",
   "icons": [
     {
       "src": "/assets/apple-touch-icon.png",
