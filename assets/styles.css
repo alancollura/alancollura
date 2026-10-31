@@ -205,3 +205,6 @@ body{background:var(--paper);color:var(--ink)}
 .contact-option{background:#e9eef5}.contact-option:hover{background:#dee8f6}.contact-option>span{color:#5d76ac}
 .project-tile-dark:before{border-color:#344a75}.project-punct{color:var(--acid)}
 .service-card,.principle-banner{border-color:#dbe1e7}
+
+/* SEO clarity: the person's full name is visibly part of the homepage H1. */
+.ac-hero h1 .ac-hero-name{display:block;font:800 clamp(14px,1.25vw,17px)/1.25 Inter,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#d9e5ff;margin-bottom:18px;}

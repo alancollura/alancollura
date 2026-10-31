@@ -153,3 +153,14 @@ Registra la proprietà Domain `alancollura.com` e verifica il record TXT DNS ric
 - **La homepage funziona ma una sottopagina no**: controlla che sia stata caricata la cartella con il suo `index.html` e che non ci siano errori nei nomi dei percorsi.
 - **CSS mancante**: controlla `assets/styles.css` e che il progetto sia pubblicato dalla root corretta.
 - **Gli aggiornamenti non si vedono**: conferma di aver eseguito commit sul branch collegato a Vercel e apri l'ultimo deployment.
+
+
+## Brand SEO v3 (31/10/2026)
+- Homepage H1: now explicitly says `Alan Collura` (visible). Branded title/description refined.
+- New targeted biography / role page: `/alan-collura-inglese-per-negati/` (linked from main story and results).
+- Consistent `Person` identity (`@id` across pages), `WebSite` name, canonical paths and sitemap.
+- No unverified profile URLs in `sameAs` and NO fake job credentials. Add only confirmed public personal URLs to `sameAs`.
+- A real portrait is still NEEDED: use a genuine photograph, give it a descriptive alt and add its crawlable URL to `Person.image`. Do NOT call the current decorative OG graphic a photograph.
+- Publish a credible independently verifiable reference / interview for the Inglese per Negati experience if possible.
+- Submit `/sitemap.xml` in Search Console, inspect and request indexing for homepage, `/chi-sono/`, and the Inglese per Negati case page.
+- This package can be deployed through the already configured GitHub→Vercel pipeline. It does not change DNS.
