@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parent
 DOMAIN='https://alancollura.com'
 YEAR=2026
 
-nav=[('Chi sono','/chi-sono/'),('La mia storia','/la-mia-storia/'),('Il metodo','/metodo-commerciale/'),('Risultati','/risultati/'),('Progetti','/progetti/'),('Approfondimenti','/approfondimenti/')]
+nav=[('Chi sono','/chi-sono/'),('Il percorso','/la-mia-storia/'),('Il metodo','/metodo-commerciale/'),('Progetti','/progetti/'),('Approfondimenti','/approfondimenti/')]
 
 # SEO metadata is rendered statically, not created by JavaScript.
 P={}
@@ -253,8 +253,11 @@ add('/privacy/','Privacy e Informazioni sul Sito | Alan Collura',
 'Informazioni su privacy, navigazione e Google Analytics 4 su alancollura.com: statistiche attive solo con consenso e preferenze modificabili.',
 'INFORMAZIONI / PRIVACY','Trasparenza sul sito <em>alancollura.com.</em>',
 'Questa pagina descrive le funzionalità tecniche presenti in questa versione del sito e i possibili trattamenti collegati alla navigazione.',r'''
-<section class="section section-white"><div class="container article-solo privacy-copy"><p class="eyebrow">VERSIONE DEL 31 OTTOBRE 2026</p><h2>Informazioni generali</h2><p>Questo è un sito personale informativo dedicato al percorso professionale e alle attività di Alan Collura. Non sono presenti form di contatto, account utente, newsletter o strumenti di profilazione pubblicitaria. Il sito può utilizzare Google Analytics 4 esclusivamente dopo che il visitatore ha espresso il consenso per le statistiche.</p><h2>Dati tecnici di navigazione</h2><p>Come avviene normalmente per i siti web, il fornitore di hosting può trattare dati tecnici necessari alla trasmissione e alla sicurezza del servizio, come indirizzo IP, data e ora delle richieste e informazioni sul browser. Per dettagli e tempi di conservazione si applicano le informazioni del fornitore di hosting effettivamente utilizzato dal titolare del sito.</p><h2>Cookie e risorse esterne</h2><p>Il sito propone una scelta tra Accetta e Rifiuta per Google Analytics 4 (ID di misurazione G-PPYNVNX592). Prima del consenso, il codice di Google Analytics non viene caricato. Se accetti, il servizio di Google può raccogliere dati statistici sulla navigazione, sulle pagine viste e sulle interazioni, utilizzando anche cookie analitici. Se rifiuti, Analytics non viene attivato. La preferenza è memorizzata localmente nel browser ed è modificabile in qualsiasi momento. <button class="ac-cookie-privacy-button" type="button" data-cookie-settings>Gestisci preferenze cookie</button>. L'informativa sul trattamento dei dati effettuato da Google è disponibile sul sito ufficiale di Google.</p><h2>Contatti tramite link esterni</h2><p>I collegamenti email aprono il programma di posta dell'utente; le richieste sono indirizzate al canale professionale indicato nella pagina Contatti. I link ai siti dei progetti conducono a servizi esterni, che applicano le proprie informative.</p><h2>Titolare e dati legali</h2><p><strong>Da completare prima della pubblicazione definitiva:</strong> indicazione del titolare del trattamento, eventuali dati societari e recapiti privacy corretti per l'effettivo soggetto che pubblicherà e gestirà il dominio. Questa pagina fornisce informazioni sul comportamento tecnico del sito, ma non sostituisce una privacy policy legale personalizzata.</p></div></section>
+<section class="section section-white"><div class="container article-solo privacy-copy"><p class="eyebrow">AGGIORNATO IL 2 NOVEMBRE 2026</p><h2>Informazioni generali</h2><p>Questo è un sito personale informativo dedicato al percorso professionale e alle attività di Alan Collura. Non sono presenti form di contatto, account utente, newsletter o strumenti di profilazione pubblicitaria. Il sito può utilizzare Google Analytics 4 esclusivamente dopo che il visitatore ha espresso il consenso per le statistiche.</p><h2>Dati tecnici di navigazione</h2><p>Come avviene normalmente per i siti web, il fornitore di hosting può trattare dati tecnici necessari alla trasmissione e alla sicurezza del servizio, come indirizzo IP, data e ora delle richieste e informazioni sul browser. Per dettagli e tempi di conservazione si applicano le informazioni del fornitore di hosting effettivamente utilizzato dal titolare del sito.</p><h2>Cookie e risorse esterne</h2><p>Il sito propone una scelta tra Accetta e Rifiuta per Google Analytics 4 (ID di misurazione G-PPYNVNX592). Prima del consenso, il codice di Google Analytics non viene caricato. Se accetti, il servizio di Google può raccogliere dati statistici sulla navigazione, sulle pagine viste e sulle interazioni, utilizzando anche cookie analitici. Se rifiuti, Analytics non viene attivato. La preferenza è memorizzata localmente nel browser ed è modificabile in qualsiasi momento. <button class="ac-cookie-privacy-button" type="button" data-cookie-settings>Gestisci preferenze cookie</button>. L'informativa sul trattamento dei dati effettuato da Google è disponibile sul sito ufficiale di Google.</p><h2>Contatti tramite link esterni</h2><p>I collegamenti email aprono il programma di posta dell'utente; le richieste sono indirizzate al canale professionale indicato nella pagina Contatti. I link ai siti dei progetti conducono a servizi esterni, che applicano le proprie informative.</p><h2>Titolare e dati legali</h2><p><strong>Da completare prima della pubblicazione definitiva:</strong> indicazione del titolare del trattamento, eventuali dati societari e recapiti privacy corretti per l'effettivo soggetto che pubblicherà e gestirà il dominio. Questa pagina fornisce informazioni sul comportamento tecnico del sito, ma non sostituisce una privacy policy legale personalizzata.</p></div></section>
 ''')
+
+from redesign_content import apply_redesign
+apply_redesign(P)
 
 # HTML structure helpers
 PERSON_ID=DOMAIN+'/#person'
@@ -280,14 +283,14 @@ def breadcrumbs(path):
 def ld_graph(path,page):
     canonical=DOMAIN+path
     graph=[
-    {'@type':'Person','@id':PERSON_ID,'name':'Alan Collura','url':DOMAIN+'/','jobTitle':'Direttore commerciale e Sales Manager','alternateName':['Collura Alan'],'description':'Alan Collura è un professionista della direzione commerciale e della formazione sales, fondatore di Recupero Fatturato e MetodoVendita e già impegnato nella crescita commerciale di Inglese per Negati.','knowsAbout':['Direzione commerciale','Sales management','Formazione venditori','Sales operations','KPI commerciali','Gestione CRM','Strategia di vendita'],'subjectOf':[{'@type':'WebPage','url':'https://recuperofatturato.com/'},{'@type':'WebPage','url':DOMAIN+'/alan-collura-inglese-per-negati/'}]},
+    {'@type':'Person','@id':PERSON_ID,'name':'Alan Collura','url':DOMAIN+'/','jobTitle':'Founder e Direttore Commerciale','image':DOMAIN+'/assets/alan-collura-conferenza.webp','alternateName':['Collura Alan'],'description':'Alan Collura è un founder e direttore commerciale attivo in Italia, Stati Uniti e Spagna. Ha fondato Recupero Fatturato e MetodoVendita ed è stato coinvolto nello sviluppo commerciale di Inglese per Negati.','knowsAbout':['Direzione commerciale','Sales management','Formazione venditori','Sales operations','KPI commerciali','Gestione CRM','Strategia di vendita'],'subjectOf':[{'@type':'WebPage','url':'https://recuperofatturato.com/'},{'@type':'WebPage','url':'https://metodovendita.it/'},{'@type':'WebPage','url':DOMAIN+'/alan-collura-inglese-per-negati/'}]},
     {'@type':'WebSite','@id':SITE_ID,'name':'Alan Collura','alternateName':['alancollura.com'],'url':DOMAIN+'/','inLanguage':'it-IT','publisher':{'@id':PERSON_ID}},
     {'@type':'WebPage' if not page.get('article') else 'Article', '@id':canonical+'#webpage','url':canonical,'name':page['title'],'description':page['description'],'inLanguage':'it-IT','isPartOf':{'@id':SITE_ID},'about':{'@id':PERSON_ID}}
     ]
     if path=='/':graph[-1]['@type']='WebPage';graph[-1]['mainEntity']={'@id':PERSON_ID}
     if path=='/chi-sono/':graph[-1]['@type']='ProfilePage';graph[-1]['mainEntity']={'@id':PERSON_ID}
     if page.get('article'):
-        graph[-1].update({'@type':'BlogPosting','headline':page['headline'].replace('<em>','').replace('</em>',''),'author':{'@id':PERSON_ID},'datePublished':'2026-10-31','dateModified':'2026-10-31','mainEntityOfPage':canonical,'image':DOMAIN+'/assets/og-alan-collura.png'})
+        graph[-1].update({'@type':'BlogPosting','headline':page['headline'].replace('<em>','').replace('</em>',''),'author':{'@id':PERSON_ID},'datePublished':'2026-10-31','dateModified':'2026-11-02','mainEntityOfPage':canonical,'image':DOMAIN+'/assets/og-alan-collura.png'})
     if path!='/':
         seg=[s for s in path.strip('/').split('/') if s]
         crumbs=[{'@type':'ListItem','position':1,'name':'Home','item':DOMAIN+'/'}]
@@ -308,7 +311,7 @@ def page_html(path,page):
     else:
         main=f'''<section class="subhero"><div class="subhero-lines" aria-hidden="true"></div><div class="container subhero-inner">{breadcrumbs(path)}<div class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> {page['eyebrow']}</div><h1>{page['headline']}</h1><p>{page['lead']}</p></div><span class="subhero-index" aria-hidden="true">AC / {path.strip('/').split('/')[-1].replace('-',' ').upper()}</span></section>'''+page['body']
     # CTA before footer on commercial and personal pages, not legal or contact
-    if path not in ['/privacy/','/contatti/']:
+    if path not in ['/privacy/','/contatti/','/']:
         main+='''<section class="end-cta"><div class="container end-cta-grid"><div><p class="eyebrow eyebrow-light">IL PROSSIMO PASSO</p><h2>Costruiamo valore.<br><em>Non solo volumi.</em></h2><p>Ogni crescita sana parte da una domanda fatta bene e da numeri letti con attenzione.</p></div><a class="btn btn-accent" href="/contatti/">Entra in contatto <span aria-hidden="true">↗</span></a></div></section>'''
     html=f'''<!doctype html>
 <html lang="it"><head>
@@ -317,7 +320,7 @@ def page_html(path,page):
 <meta name="description" content="{escape(page['description'],quote=True)}">
 <link rel="canonical" href="{canonical}">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="theme-color" content="#0b1321">
+<meta name="theme-color" content="#071629">
 <meta property="og:type" content="{'article' if page.get('article') else 'website'}">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Alan Collura">
@@ -326,7 +329,7 @@ def page_html(path,page):
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{DOMAIN}/assets/og-alan-collura.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Alan Collura — Sales, Strategy, Leadership">
+<meta property="og:image:alt" content="Alan Collura — Founder e direttore commerciale">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{escape(page['title'],quote=True)}">
 <meta name="twitter:description" content="{escape(page['description'],quote=True)}">
@@ -335,18 +338,19 @@ def page_html(path,page):
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/redesign.css">
 <script type="application/ld+json">{json.dumps(ld_graph(path,page),ensure_ascii=False,separators=(',',':')).replace('</','<\\/')}</script>
 <script src="/assets/site.js" defer></script>
 <script src="/assets/analytics.js" defer></script>
 </head><body>
 <a class="skip-link" href="#main">Vai al contenuto</a>
-<header class="site-header" id="top"><div class="container header-inner"><a class="brand" href="/" aria-label="Alan Collura, torna alla homepage"><span class="brand-mark">A<span>·</span>C</span><span class="brand-name">ALAN<br>COLLURA</span></a>
+<header class="site-header" id="top"><div class="container header-inner"><a class="brand" href="/" aria-label="Alan Collura, torna alla homepage"><span class="brand-mark">AC</span><span class="brand-name">ALAN<br>COLLURA</span></a>
 <nav id="desktop-nav" class="desktop-nav" aria-label="Navigazione principale">{linktags}</nav>
 <a class="header-contact" href="/contatti/">Contatti <span aria-hidden="true">↗</span></a>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Apri il menu"><span></span><span></span></button>
 </div><nav id="mobile-nav" class="mobile-nav" aria-label="Navigazione mobile" hidden>{linktags}<a class="mobile-cta" href="/contatti/">Contatti ↗</a></nav></header>
 <main id="main">{main}</main>
-<footer class="footer"><div class="container"><div class="footer-top"><div><a class="footer-brand" href="/">ALAN <span>COLLURA.</span></a><p>Prima sales. Poi direzione commerciale.<br>Oggi costruisco sistemi di vendita.</p></div><div class="footer-links"><div><strong>ESPLORA</strong><a href="/chi-sono/">Chi sono</a><a href="/la-mia-storia/">La mia storia</a><a href="/metodo-commerciale/">Il metodo</a><a href="/risultati/">Risultati</a></div><div><strong>SCOPRI</strong><a href="/progetti/">Progetti</a><a href="/direttore-commerciale/">Direzione commerciale</a><a href="/formazione-venditori/">Formazione venditori</a><a href="/approfondimenti/">Approfondimenti</a></div><div><strong>COLLEGAMENTI</strong><a href="https://recuperofatturato.com/" target="_blank" rel="noopener noreferrer">Recupero Fatturato ↗</a><a href="https://metodovendita.it/" target="_blank" rel="noopener noreferrer">MetodoVendita ↗</a><a href="/contatti/">Contatti ↗</a><a href="/privacy/">Privacy</a><button class="ac-footer-cookie-link" type="button" data-cookie-settings>Preferenze cookie</button></div></div></div><div class="footer-bottom"><span>© {YEAR} Alan Collura. Tutti i diritti riservati.</span><span>SALES / STRATEGY / EXECUTION</span><a href="#top">Torna su ↑</a></div></div></footer>
+<footer class="footer"><div class="container"><div class="footer-top"><div><a class="footer-brand" href="/">ALAN <span>COLLURA.</span></a><p>Sales. Direzione commerciale. Founder.<br>Italia · USA · Spagna.</p></div><div class="footer-links"><div><strong>ESPLORA</strong><a href="/chi-sono/">Chi sono</a><a href="/la-mia-storia/">La mia storia</a><a href="/metodo-commerciale/">Il metodo</a><a href="/risultati/">Risultati</a></div><div><strong>SCOPRI</strong><a href="/progetti/">Progetti</a><a href="/direttore-commerciale/">Direzione commerciale</a><a href="/formazione-venditori/">Formazione venditori</a><a href="/approfondimenti/">Approfondimenti</a></div><div><strong>COLLEGAMENTI</strong><a href="https://recuperofatturato.com/" target="_blank" rel="noopener noreferrer">Recupero Fatturato ↗</a><a href="https://metodovendita.it/" target="_blank" rel="noopener noreferrer">MetodoVendita ↗</a><a href="/contatti/">Contatti ↗</a><a href="https://www.instagram.com/metodovendita/" target="_blank" rel="noopener noreferrer">Instagram MetodoVendita ↗</a><a href="/privacy/">Privacy</a><button class="ac-footer-cookie-link" type="button" data-cookie-settings>Preferenze cookie</button></div></div></div><div class="footer-bottom"><span>© {YEAR} Alan Collura. Tutti i diritti riservati.</span><span>ALAN COLLURA / SALES &amp; BUSINESS</span><a href="#top">Torna su ↑</a></div></div></footer>
 </body></html>'''
     return html
 
@@ -357,12 +361,32 @@ for path,page in P.items():
 
 sitemap='''<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'''
 for path in P:
-    sitemap+=f'  <url><loc>{DOMAIN}{path}</loc><lastmod>2026-10-31</lastmod><changefreq>{"monthly" if path.startswith("/approfondimenti/") else "weekly"}</changefreq><priority>{"1.0" if path=="/" else "0.8" if path in ["/chi-sono/","/metodo-commerciale/","/risultati/"] else "0.6"}</priority></url>\n'
+    sitemap+=f'  <url><loc>{DOMAIN}{path}</loc><lastmod>2026-11-02</lastmod><changefreq>{"monthly" if path.startswith("/approfondimenti/") else "weekly"}</changefreq><priority>{"1.0" if path=="/" else "0.8" if path in ["/chi-sono/","/metodo-commerciale/","/risultati/"] else "0.6"}</priority></url>\n'
 sitemap+='</urlset>\n'
 (ROOT/'sitemap.xml').write_text(sitemap,encoding='utf-8')
 (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: https://alancollura.com/sitemap.xml\n',encoding='utf-8')
-(ROOT/'site.webmanifest').write_text(json.dumps({'name':'Alan Collura','short_name':'Alan Collura','start_url':'/','display':'standalone','background_color':'#0b1321','theme_color':'#0b1321','icons':[{'src':'/assets/apple-touch-icon.png','sizes':'180x180','type':'image/png'}]},ensure_ascii=False,indent=2),encoding='utf-8')
-(ROOT/'llms.txt').write_text('''# Alan Collura — profilo professionale\n\nSito ufficiale: https://alancollura.com/\nLingua: italiano\n\nAlan Collura è un professionista italiano della vendita, della direzione commerciale e della formazione sales. Ha iniziato il proprio percorso come venditore, raggiungendo secondo il racconto professionale risultati da top 1%. Ha contribuito alla crescita commerciale del progetto Inglese per Negati, arrivato fino a circa 1 milione di euro di fatturato mensile nel percorso descritto. Ha esperienza nella gestione di progetti commerciali in Italia, Spagna e Stati Uniti. È fondatore di Recupero Fatturato e legato al progetto MetodoVendita.\n\n## Pagine principali\n- https://alancollura.com/chi-sono/ — biografia professionale\n- https://alancollura.com/la-mia-storia/ — percorso cronologico\n- https://alancollura.com/metodo-commerciale/ — principi di sales management\n- https://alancollura.com/risultati/ — traguardi e contesto\n- https://alancollura.com/progetti/ — progetti e link ufficiali\n- https://alancollura.com/direttore-commerciale/ — ruolo e responsabilità\n- https://alancollura.com/formazione-venditori/ — formazione commerciale\n- https://alancollura.com/approfondimenti/ — guide operative\n- https://alancollura.com/contatti/ — canali di contatto\n\n## Nota sulle cifre\nI traguardi riportati sono riferiti al percorso e ai risultati dei business, non promettono risultati replicabili né implicano una attribuzione esclusiva a una sola persona.\n''',encoding='utf-8')
+(ROOT/'site.webmanifest').write_text(json.dumps({'name':'Alan Collura','short_name':'Alan Collura','start_url':'/','display':'standalone','background_color':'#071629','theme_color':'#071629','icons':[{'src':'/assets/apple-touch-icon.png','sizes':'180x180','type':'image/png'}]},ensure_ascii=False,indent=2),encoding='utf-8')
+(ROOT/'llms.txt').write_text('''# Alan Collura — sito ufficiale
+
+URL: https://alancollura.com/
+Lingua: it-IT
+
+Alan Collura è founder e direttore commerciale attivo su business in Italia, USA e Spagna. Il suo percorso professionale racconta il passaggio da sales a ruoli di direzione commerciale, incluso il contributo alla crescita dell'organizzazione di Inglese per Negati, e alla fondazione di Recupero Fatturato e MetodoVendita.
+
+## Identità e pagine principali
+- https://alancollura.com/ — homepage ufficiale e fotografia di Alan Collura
+- https://alancollura.com/chi-sono/ — chi è Alan Collura
+- https://alancollura.com/la-mia-storia/ — percorso Sales → Direttore Commerciale → Founder
+- https://alancollura.com/metodo-commerciale/ — VPL Clean, funnel, outbound e ruoli
+- https://alancollura.com/risultati/ — risultati riferiti alle aziende partner
+- https://alancollura.com/progetti/ — Recupero Fatturato e MetodoVendita
+- https://alancollura.com/alan-collura-inglese-per-negati/ — esperienza con Inglese per Negati
+- https://alancollura.com/contatti/ — WhatsApp e recapiti dei progetti
+
+## Nota sui numeri
+Le cifre pubblicate sono dichiarazioni riferite al percorso dell'autore e ai business partner. Le cifre di fatturato delle aziende non devono essere attribuite esclusivamente all'attività di una sola persona né interpretate come garanzia per futuri clienti.
+''',encoding='utf-8')
 (ROOT/'vercel.json').write_text(json.dumps({'$schema':'https://openapi.vercel.sh/vercel.json','version':2,'framework':None,'outputDirectory':'.','cleanUrls':True,'trailingSlash':True,'headers':[{'source':'/(.*)','headers':[{'key':'X-Content-Type-Options','value':'nosniff'},{'key':'Referrer-Policy','value':'strict-origin-when-cross-origin'},{'key':'Permissions-Policy','value':'camera=(), microphone=(), geolocation=()'}]},{'source':'/assets/(.*)','headers':[{'key':'Cache-Control','value':'public, max-age=604800'}]}]},indent=2),encoding='utf-8')
-(ROOT/'404.html').write_text('''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pagina non trovata | Alan Collura</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/styles.css"></head><body class="error-page"><div class="error-wrap"><a href="/" class="brand"><span class="brand-mark">A·C</span><span class="brand-name">ALAN<br>COLLURA</span></a><div class="error-code">404</div><h1>Questa pagina non è nel percorso.</h1><p>Il contenuto cercato non è disponibile. Riparti dalla homepage oppure scopri il mio metodo commerciale.</p><a href="/" class="btn btn-accent">Torna alla homepage ↗</a></div></body></html>''',encoding='utf-8')
+(ROOT/'404.html').write_text('''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pagina non trovata | Alan Collura</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/redesign.css"></head><body class="error-page"><div class="error-wrap"><a href="/" class="brand"><span class="brand-mark">A·C</span><span class="brand-name">ALAN<br>COLLURA</span></a><div class="error-code">404</div><h1>Questa pagina non è nel percorso.</h1><p>Il contenuto cercato non è disponibile. Riparti dalla homepage oppure scopri il mio metodo commerciale.</p><a href="/" class="btn btn-accent">Torna alla homepage ↗</a></div></body></html>''',encoding='utf-8')
 print(f'Generated {len(P)} static pages')
