@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Calamita dorata Recupero Fatturato">
+<defs>
+<linearGradient id="gold" x1=".16" y1=".13" x2=".84" y2=".90" gradientUnits="objectBoundingBox">
+<stop offset="0" stop-color="#7c460a"/><stop offset=".13" stop-color="#efbe4a"/><stop offset=".29" stop-color="#fff2a4"/><stop offset=".46" stop-color="#c98b1f"/><stop offset=".66" stop-color="#f6cf69"/><stop offset=".81" stop-color="#91601b"/><stop offset="1" stop-color="#f6cf73"/>
+</linearGradient>
+<linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a2"/><stop offset=".5" stop-color="#a8640b"/><stop offset="1" stop-color="#392809"/></linearGradient>
+<radialGradient id="spark" cx="30%" cy="25%" r="80%"><stop stop-color="#fffde0"/><stop offset=".25" stop-color="#fbe28b"/><stop offset=".6" stop-color="#e8b139"/><stop offset="1" stop-color="#7e4a07"/></radialGradient>
+<filter id="cast" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.7"/></filter>
+</defs>
+<path d="M128 37 C102 14 63 28 44 53 C25 77 27 105 43 123 C60 144 89 142 115 115" fill="none" stroke="#070807" stroke-width="41" stroke-linecap="round" opacity=".5" filter="url(#cast)" transform="translate(1 5)"/>
+<path d="M128 37 C102 14 63 28 44 53 C25 77 27 105 43 123 C60 144 89 142 115 115" fill="none" stroke="#453010" stroke-width="35" stroke-linecap="butt"/>
+<path d="M128 37 C102 14 63 28 44 53 C25 77 27 105 43 123 C60 144 89 142 115 115" fill="none" stroke="url(#gold)" stroke-width="29" stroke-linecap="butt"/>
+<path d="M124 28 C91 16 58 38 45 62 C34 83 38 105 48 118 C65 139 92 130 109 113" fill="none" stroke="#fff2ae" stroke-width="3.8" stroke-linecap="round" opacity=".8"/>
+<path d="M140 28 L120 43" stroke="#ffd86d" stroke-width="32"/><path d="M127 105 L104 125" stroke="#ffdd78" stroke-width="32"/>
+<path d="M140 28 L120 43" stroke="url(#edge)" stroke-width="24"/><path d="M127 105 L104 125" stroke="url(#edge)" stroke-width="24"/>
+<path d="M145 22 L119 39 M130 102 L103 125" stroke="#fff0a0" stroke-width="2" opacity=".8"/>
+<g fill="url(#spark)" stroke="#f5d275" stroke-width=".6">
+<circle cx="148" cy="36" r="9"/><circle cx="155" cy="62" r="10"/><circle cx="147" cy="87" r="7"/><circle cx="168" cy="45" r="6"/><circle cx="171" cy="72" r="5"/><circle cx="136" cy="63" r="4.5"/><circle cx="163" cy="97" r="4"/><circle cx="134" cy="94" r="3.5"/>
+</g>
+<g fill="#fff9c5" opacity=".85"><circle cx="145" cy="33" r="2.5"/><circle cx="151" cy="57" r="2.3"/><circle cx="164" cy="43" r="1.5"/><circle cx="145" cy="84" r="1.7"/></g>
+</svg>
