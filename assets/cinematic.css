@@ -503,3 +503,33 @@ body.cinema-home :focus-visible{outline:3px solid var(--cin-green);outline-offse
 @media(prefers-reduced-motion:reduce){
  .cin-project-row:hover .cin-project-brand-stage--rf .cin-rf-official-logo{transform:none;transition:none}
 }
+
+/* V6 mobile image geometry: keep landscape source proportions on narrow viewports;
+   foreground stays sharp, face unobscured, and key text stays within safe margins. */
+@media (max-width:620px){
+ .cin-frame-fallback {object-fit:cover;object-position:67% 50%;}
+ .cin-caption--one {top:18%;left:clamp(18px,6vw,27px);right:12px;}
+ .cin-caption--one h1 {font-size:clamp(39px,11.7vw,56px);line-height:.87;letter-spacing:-.105em;}
+ .cin-caption--one p{font-size:clamp(10px,2.8vw,12px);max-width:210px;line-height:1.42;margin-top:19px;}
+ .cin-caption--one .cin-caption-kicker{letter-spacing:.11em;gap:10px;margin-bottom:18px;}
+ .cin-caption--one .cin-caption-kicker i{width:28px;}
+ .cin-vignette{background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 72%),radial-gradient(ellipse at 36% 56%,transparent 25%,rgba(0,0,0,.32) 100%);}
+}
+
+/* V7 — iPhone Safari touch gestures + manual scrubber, keeps original photograph ratio. */
+.cin-progress-track{position:relative;min-width:32px}
+.cin-progress-scrub{appearance:none;-webkit-appearance:none;position:absolute;left:-6px;top:50%;width:calc(100% + 12px);height:44px;transform:translateY(-50%);margin:0;background:transparent;border:0;cursor:ew-resize;touch-action:pan-x;opacity:.98}
+.cin-progress-scrub::-webkit-slider-runnable-track{height:2px;background:transparent}
+.cin-progress-scrub::-moz-range-track{height:2px;background:transparent}
+.cin-progress-scrub::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--cin-green);border:2px solid #f4ffd9;margin-top:-5px;box-shadow:0 0 10px #aafa44a8}
+.cin-progress-scrub::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--cin-green);border:2px solid #f4ffd9;box-shadow:0 0 10px #aafa44a8}
+.cin-progress-scrub:focus-visible{outline:2px solid var(--cin-green);outline-offset:3px}
+.cin-portal-continue{display:block;opacity:0;pointer-events:none;font-size:10px;letter-spacing:.14em;color:#f9fff2;font-weight:900;margin-top:20px;padding:15px;border:1px solid #c6fc8b8c;text-decoration:none;background:#0b120ab8;transition:opacity .25s}
+.cin-portal-continue.is-ready{opacity:1;pointer-events:auto}
+@media (pointer:coarse){
+  .cin-scroll-instruction span:last-child::after{content:' · SCORRI CON IL DITO';display:block;letter-spacing:.07em;color:#e4ffe1;font-size:7px;margin-top:2px}
+  .cin-progress-scrub::-webkit-slider-thumb{width:17px;height:17px;margin-top:-7px}
+  .cin-progress-scrub::-moz-range-thumb{width:15px;height:15px}
+}
+@media(max-width:620px){.cin-portal-continue{font-size:9px;padding:12px}.cin-progress-scrub{height:46px}}
+@media (prefers-reduced-motion:reduce){body.cin-touch-motion .cin-reel{display:block}body.cin-touch-motion .cin-portal{display:flex!important}}

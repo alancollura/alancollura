@@ -1,5 +1,5 @@
 /* Cinematic scroll / one continuous approved photo, reversible car zoom and procedural vortex.
-   No wheel interception, no autoplay media, no external libraries. */
+   Supports desktop native scrolling and explicit iOS touch-to-scrub gestures. */
 (() => {
   'use strict';
   const film=document.getElementById('esperienza');
@@ -15,14 +15,51 @@
   const portalLabel=document.getElementById('cin-portal-label');
   const portalCount=document.getElementById('cin-portal-count');
   const portalFill=document.getElementById('cin-portal-meter-fill');
+  const scrub=document.getElementById('cin-progress-scrub');
+  const continueLink=document.getElementById('cin-portal-continue');
   const menuBtn=document.querySelector('.cin-menu-button');
   const menu=document.getElementById('cin-mobile-menu');
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const shots=[{src:'/assets/scroll-02-hd.webp',fx:.57,fy:.51,fxM:.70,fyM:.50}];
+  const shots=[{src:'/assets/scroll-02-hd.webp',fx:.57,fy:.51,fxM:.67,fyM:.50}];
   const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
   const smooth=v=>{v=clamp(v);return v*v*(3-2*v)};
   const easeIn=v=>v*v*v;
   let target=0,visible=0,raf=0,w=0,h=0,dpr=1,lastW=0,lastH=0,active=-1;
+  let userMotionOptIn=false, gesture=null, overrideProgress=null, overrideY=0;
+  const animates=()=>!reduced.matches||userMotionOptIn;
+  const optInMotion=()=>{
+    if(userMotionOptIn)return;
+    userMotionOptIn=true;
+    document.body.classList.add('cin-touch-motion','cin-motion');
+    canvas.style.display='block';
+    resize();requestDraw();
+  };
+  function filmMetrics(){
+    const docTop=film.getBoundingClientRect().top+(window.scrollY||window.pageYOffset||0);
+    // visualViewport handles Safari collapsing and expanding the toolbar.
+    const screen=Math.min(window.innerHeight,window.visualViewport?.height||window.innerHeight);
+    const span=Math.max(1,film.offsetHeight-screen);
+    return {docTop,span};
+  }
+  function nativeProgress(){
+    const {docTop,span}=filmMetrics();
+    return clamp(((window.scrollY||window.pageYOffset||0)-docTop)/span);
+  }
+  function setProgress(p,{scrollPage=true}={}){
+    const next=clamp(p);
+    target=next;
+    // Scrubbing is frame-accurate to the finger, rather than easing behind it.
+    visible=next;
+    overrideProgress=next;
+    overrideY=window.scrollY||window.pageYOffset||0;
+    if(!animates())optInMotion();
+    if(!raf)raf=requestAnimationFrame(animate);
+    if(scrollPage){
+      const {docTop,span}=filmMetrics();
+      // 'instant' prevents CSS scroll-behavior:smooth from lagging touch scrubbing.
+      try{window.scrollTo({top:docTop+span*next,behavior:'instant'});}catch(_){/* Embedded viewers may prohibit scripted scrolling; direct scrub remains active. */}
+    }
+  }
 
   function preload(s){
     if(s.image||s.loading)return;
@@ -55,9 +92,14 @@
   function shotRect(s,scaleFactor=1,stage=0){
     const im=s.image;if(!im)return null;
     const mobile=w/h<.8;
-    const cover=Math.max(w/im.width,h/im.height);
+    // Always use intrinsic pixels, not the rendered <img> box dimensions.
+    // On portrait phones the fallback <img> box is portrait while the real photo
+    // is 2:1 landscape. Using im.width / im.height here stretched the image.
+    const sourceWidth=im.naturalWidth||im.videoWidth||im.width;
+    const sourceHeight=im.naturalHeight||im.videoHeight||im.height;
+    const cover=Math.max(w/sourceWidth,h/sourceHeight);
     const zoom=scaleFactor;
-    const dw=im.width*cover*zoom,dh=im.height*cover*zoom;
+    const dw=sourceWidth*cover*zoom,dh=sourceHeight*cover*zoom;
     const fx=mobile?s.fxM:s.fx,fy=mobile?s.fyM:s.fy;
     return {x:(w-dw)*fx+(stage-.5)*(mobile?.007:.025)*w,
             y:(h-dh)*fy+(stage-.5)*(mobile?.014:.022)*h,
@@ -159,7 +201,7 @@
     ctx.restore();
   }
   function draw(){
-    if(!ctx||!w||!h||reduced.matches||!shots[0].image)return;
+    if(!ctx||!w||!h||!animates()||!shots[0].image)return;
     const p=visible;
     ctx.globalAlpha=1;ctx.fillStyle='#070b0b';ctx.fillRect(0,0,w,h);
     // No photo change anywhere: always the original sunset Lamborghini shot.
@@ -187,7 +229,7 @@
   function ui(){
     const p=visible;
     caps.forEach((el,i)=>{
-      const opacity=reduced.matches?(i===0?1:0):captionsOpacity(p,i);
+      const opacity=animates()?captionsOpacity(p,i):(i===0?1:0);
       el.style.opacity=opacity.toFixed(3);
       el.style.transform=`translate3d(0,${((1-opacity)*29).toFixed(1)}px,0) scale(${(.98+opacity*.02).toFixed(3)})`;
       el.style.pointerEvents=opacity>.6?'auto':'none';
@@ -196,9 +238,10 @@
     const chapter=chapterIndex(p);
     if(active!==chapter){chapters.forEach((e,i)=>{e.classList.toggle('is-active',i===chapter);e.setAttribute('aria-pressed',String(i===chapter))});active=chapter;}
     if(percent)percent.textContent=String(Math.round(p*100)).padStart(2,'0')+'%';
+    if(scrub && document.activeElement!==scrub)scrub.value=String(Math.round(p*1000));
     if(fill)fill.style.width=(p*100).toFixed(1)+'%';
     const load=clamp((p-.78)/.19),appearance=smooth((p-.79)/.10);
-    if(portal){portal.style.opacity=reduced.matches?'0':String(appearance);
+    if(portal){portal.style.opacity=animates()?String(appearance):'0';
       portal.style.transform=`scale(${(.82+.18*appearance).toFixed(3)})`;
       portal.style.setProperty('--orbit-angle',`${(p*950).toFixed(1)}deg`);
       portal.setAttribute('aria-hidden',appearance>.1?'false':'true');}
@@ -206,21 +249,25 @@
     if(portalCount)portalCount.textContent=String(n).padStart(2,'0')+'%';
     if(portalFill)portalFill.style.width=n+'%';
     if(portalLabel)portalLabel.textContent=load>=.999?'BENVENUTO NEL MIO MONDO':'CARICAMENTO';
+    if(continueLink)continueLink.classList.toggle('is-ready',p>.955);
     film.classList.toggle('cin-is-vortex',p>.64);
     header?.classList.toggle('cin-header--solid',window.scrollY>window.innerHeight*.7);
   }
-  function requestDraw(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;draw();ui()})}
+  function requestDraw(){if(raf)return;raf=requestAnimationFrame(animate)}
   function animate(){raf=0;const diff=target-visible;visible+=Math.abs(diff)<.0006?diff:diff*.2;draw();ui();if(Math.abs(target-visible)>.0006)raf=requestAnimationFrame(animate)}
   function scroll(){
-    const start=film.getBoundingClientRect().top+window.scrollY;
-    const span=Math.max(1,film.offsetHeight-window.innerHeight);
-    target=clamp((window.scrollY-start)/span);
-    if(reduced.matches){visible=target;ui();return}
+    const y=window.scrollY||window.pageYOffset||0;
+    // In some iOS HTML viewers the user's touch is delivered to the page
+    // while window.scrollY stays frozen. Keep the last manually scrubbed frame.
+    if(gesture?.moved){target=gesture.progress;}
+    else if(overrideProgress!==null && Math.abs(y-overrideY)<1){target=overrideProgress;}
+    else{target=nativeProgress();overrideProgress=null;}
+    if(!animates()){visible=target;ui();return;}
     if(!raf)raf=requestAnimationFrame(animate);
   }
   function start(){
     resize();preload(shots[0]);
-    if(!reduced.matches)document.body.classList.add('cin-motion');
+    if(animates())document.body.classList.add('cin-motion');
     scroll();
     const ob=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('cin-inview')}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.cin-appear').forEach(e=>ob.observe(e));
@@ -228,13 +275,46 @@
   window.addEventListener('scroll',scroll,{passive:true});
   window.addEventListener('resize',()=>{resize();scroll()},{passive:true});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)scroll()});
-  if(reduced.addEventListener)reduced.addEventListener('change',()=>{document.body.classList.toggle('cin-motion',!reduced.matches);scroll()});
+  if(reduced.addEventListener)reduced.addEventListener('change',()=>{document.body.classList.toggle('cin-motion',animates());scroll()});
   chapters.forEach(btn=>btn.addEventListener('click',()=>{
-    const begin=film.getBoundingClientRect().top+window.scrollY;
-    const span=Math.max(1,film.offsetHeight-window.innerHeight);
     const go=clamp(Number(btn.dataset.go)||0);
-    window.scrollTo({top:begin+span*go,behavior:reduced.matches?'instant':'smooth'});
+    setProgress(go);
   }));
+  // Direct phone gestures: unlike a scroll-only listener this also works in
+  // WebViews where vertical swipes are not reported as window scroll events.
+  const touchZone=film.querySelector('.cin-sticky');
+  if(touchZone){
+    touchZone.addEventListener('touchstart',e=>{
+      if(e.touches.length!==1||e.target.closest('a,button,input,textarea,select')){gesture=null;return;}
+      gesture={y:e.touches[0].clientY,progress:target,moved:false};
+    },{passive:true});
+    touchZone.addEventListener('touchmove',e=>{
+      if(!gesture||e.touches.length!==1)return;
+      const y=e.touches[0].clientY;
+      const delta=gesture.y-y;
+      gesture.y=y;
+      if(Math.abs(delta)<.25)return;
+      const old=gesture.progress;
+      if((old>=.999&&delta>0)||(old<=.001&&delta<0)){
+        // At the boundaries, permit normal scrolling into the rest of the site.
+        gesture=null;return;
+      }
+      if(e.cancelable)e.preventDefault();
+      gesture.moved=true;
+      const screen=window.visualViewport?.height||window.innerHeight;
+      gesture.progress=clamp(old+delta/Math.max(650,screen*2.9));
+      setProgress(gesture.progress);
+    },{passive:false});
+    const finishGesture=()=>{gesture=null;};
+    touchZone.addEventListener('touchend',finishGesture,{passive:true});
+    touchZone.addEventListener('touchcancel',finishGesture,{passive:true});
+  }
+  if(scrub){
+    scrub.addEventListener('input',()=>setProgress(Number(scrub.value)/1000));
+    scrub.addEventListener('change',()=>setProgress(Number(scrub.value)/1000));
+  }
+  // If motion reduction is enabled, a deliberate gesture over the intro or
+  // range control constitutes an explicit opt-in; otherwise stay accessible.
   if(menuBtn&&menu){
     const close=()=>{menu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Apri menu')};
     menuBtn.addEventListener('click',()=>{const opens=menu.hidden;menu.hidden=!opens;menuBtn.setAttribute('aria-expanded',String(opens));menuBtn.setAttribute('aria-label',opens?'Chiudi menu':'Apri menu')});
