@@ -533,3 +533,22 @@ body.cinema-home :focus-visible{outline:3px solid var(--cin-green);outline-offse
 }
 @media(max-width:620px){.cin-portal-continue{font-size:9px;padding:12px}.cin-progress-scrub{height:46px}}
 @media (prefers-reduced-motion:reduce){body.cin-touch-motion .cin-reel{display:block}body.cin-touch-motion .cin-portal{display:flex!important}}
+
+/* V8 iPhone FIX — image geometry is handled by native object-fit, not canvas. */
+.cin-frame-fallback{
+ position:absolute!important;inset:0!important;
+ display:block!important;box-sizing:border-box!important;
+ width:100%!important;height:100%!important;
+ max-width:none!important;min-width:0!important;
+ object-fit:cover!important;object-position:57% 51%!important;
+ aspect-ratio:auto!important;
+ transform:translate3d(0,0,0) scale(1.015);
+ transform-origin:48% 57%;
+ will-change:transform,opacity;
+ -webkit-backface-visibility:hidden;backface-visibility:hidden;
+}
+.cin-reel{width:100%!important;height:100%!important;max-width:none!important;pointer-events:none;}
+@media(max-width:620px){
+ .cin-frame-fallback{object-position:72% 50%!important;transform-origin:45% 62%;}
+ .cin-sticky{min-height:0;overflow:hidden;}
+}

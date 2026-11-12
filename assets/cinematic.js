@@ -3,9 +3,12 @@
 (() => {
   'use strict';
   const film=document.getElementById('esperienza');
+  const photo=film?.querySelector('.cin-frame-fallback');
   const canvas=document.getElementById('cin-reel');
   if(!film || !canvas)return;
-  const ctx=canvas.getContext('2d',{alpha:false});
+  // The photograph is rendered by the browser's aspect-ratio-safe <img>, NEVER the canvas.
+  // The transparent canvas is exclusively for the vortex overlay.
+  const ctx=canvas.getContext('2d',{alpha:true});
   const header=document.querySelector('.cin-header');
   const caps=[...film.querySelectorAll('[data-caption]')];
   const chapters=[...film.querySelectorAll('.cin-chapter')];
@@ -89,46 +92,20 @@
     w=canvas.width=Math.round(bw*dpr);h=canvas.height=Math.round(bh*dpr);
     requestDraw();
   }
-  function shotRect(s,scaleFactor=1,stage=0){
-    const im=s.image;if(!im)return null;
-    const mobile=w/h<.8;
-    // Always use intrinsic pixels, not the rendered <img> box dimensions.
-    // On portrait phones the fallback <img> box is portrait while the real photo
-    // is 2:1 landscape. Using im.width / im.height here stretched the image.
-    const sourceWidth=im.naturalWidth||im.videoWidth||im.width;
-    const sourceHeight=im.naturalHeight||im.videoHeight||im.height;
-    const cover=Math.max(w/sourceWidth,h/sourceHeight);
-    const zoom=scaleFactor;
-    const dw=sourceWidth*cover*zoom,dh=sourceHeight*cover*zoom;
-    const fx=mobile?s.fxM:s.fx,fy=mobile?s.fyM:s.fy;
-    return {x:(w-dw)*fx+(stage-.5)*(mobile?.007:.025)*w,
-            y:(h-dh)*fy+(stage-.5)*(mobile?.014:.022)*h,
-            dw,dh};
-  }
-  function paintPhoto(s,zoom=1,stage=0,alpha=1){
-    if(!s.image||alpha<=.001)return;
-    const r=shotRect(s,zoom,stage);
-    ctx.globalAlpha=alpha;
-    ctx.drawImage(s.image,r.x,r.y,r.dw,r.dh);
-    ctx.globalAlpha=1;
-  }
-  // One continuous high-resolution photo from the opening through the camera dive.
-  // Scale stays moderate; the mathematically rendered vortex takes over before photo detail softens.
-  const PHOTO_ZOOM = 1.21;
-  const PHOTO_STAGE = .65;
-  function paintCarZoom(p){
-    const s=shots[0]; if(!s.image)return;
-    const base=shotRect(s,PHOTO_ZOOM,PHOTO_STAGE);
-    const u=smooth((p-.37)/.355);
-    const fromX=(w*.5-base.x)/base.dw, fromY=(h*.5-base.y)/base.dh;
-    const focusX=fromX+(.405-fromX)*u;
-    const focusY=fromY+(.725-fromY)*u;
-    const mult=1+.79*Math.pow(u,1.21);
-    const dw=base.dw*mult,dh=base.dh*mult;
-    const x=w*.5-focusX*dw,y=h*.5-focusY*dh;
-    ctx.save();ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
-    ctx.drawImage(s.image,x,y,dw,dh);
-    ctx.restore();
+  // All zoom/pan transforms are UNIFORM CSS scales of the real <img>.
+  // This avoids iPhone canvas bitmap stretching when Safari changes viewport height.
+  function updatePhoto(p){
+    if(!photo)return;
+    const mobile=window.matchMedia('(max-width:620px)').matches;
+    const approach=smooth((p-.21)/.50);
+    const zoom=1.015+.13*smooth(p/.33)+.83*approach;
+    const panX=(mobile?12:6)*approach;
+    const panY=(mobile?2.0:1.5)*approach;
+    const opacity=1-smooth((p-.665)/.19);
+    photo.style.transformOrigin=mobile?'45% 62%':'48% 57%';
+    photo.style.transform=`translate3d(${panX.toFixed(3)}%,${panY.toFixed(3)}%,0) scale(${zoom.toFixed(4)})`;
+    photo.style.opacity=opacity.toFixed(3);
+    photo.style.visibility=opacity<.001?'hidden':'visible';
   }
   function vortex(p){
     const v=smooth((p-.595)/.255);
@@ -201,23 +178,18 @@
     ctx.restore();
   }
   function draw(){
-    if(!ctx||!w||!h||!animates()||!shots[0].image)return;
+    if(!ctx||!w||!h||!animates())return;
     const p=visible;
-    ctx.globalAlpha=1;ctx.fillStyle='#070b0b';ctx.fillRect(0,0,w,h);
-    // No photo change anywhere: always the original sunset Lamborghini shot.
-    if(p<.37){
-      paintPhoto(shots[0],1.08+.13*smooth(p/.37),PHOTO_STAGE,1);
-    } else if(p<.865){
-      paintCarZoom(p);
-    }
+    // Transparent backing allows the CSS photo to retain its intrinsic geometry.
+    ctx.clearRect(0,0,w,h);
     vortex(p);
     const darkness=smooth((p-.835)/.105);
     if(darkness>0){ctx.fillStyle=`rgba(5,9,7,${darkness})`;ctx.fillRect(0,0,w,h)}
     const flash=smooth((p-.838)/.025)*(1-smooth((p-.878)/.065));
     if(flash>.001){
-      const fg=ctx.createRadialGradient(w*.5,h*.5,0,w*.5,h*.5,Math.max(w,h)*.61);
-      fg.addColorStop(0,`rgba(234,255,201,${flash*.48})`);
-      fg.addColorStop(.19,`rgba(150,235,77,${flash*.22})`);
+      const fg=ctx.createRadialGradient(w*.5,h*.5,0,w*.5,h*.5,Math.hypot(w,h)*.6);
+      fg.addColorStop(0,`rgba(181,255,111,${flash*.3})`);
+      fg.addColorStop(.4,`rgba(62,235,77,${flash*.22})`);
       fg.addColorStop(1,'rgba(68,120,21,0)');
       ctx.fillStyle=fg;ctx.fillRect(0,0,w,h);
     }
@@ -228,6 +200,7 @@
   }
   function ui(){
     const p=visible;
+    updatePhoto(animates()?p:0);
     caps.forEach((el,i)=>{
       const opacity=animates()?captionsOpacity(p,i):(i===0?1:0);
       el.style.opacity=opacity.toFixed(3);
@@ -274,6 +247,9 @@
   }
   window.addEventListener('scroll',scroll,{passive:true});
   window.addEventListener('resize',()=>{resize();scroll()},{passive:true});
+  if(window.ResizeObserver){new ResizeObserver(()=>{resize();scroll()}).observe(canvas);}
+  if(window.visualViewport){window.visualViewport.addEventListener('resize',()=>{resize();scroll()},{passive:true});}
+  window.addEventListener('pageshow',()=>{resize();scroll()});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)scroll()});
   if(reduced.addEventListener)reduced.addEventListener('change',()=>{document.body.classList.toggle('cin-motion',animates());scroll()});
   chapters.forEach(btn=>btn.addEventListener('click',()=>{

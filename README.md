@@ -1,17 +1,9 @@
-# Alan Collura — Cinematic Scroll V7 (fix iPhone)
+# AlanCollura.com — Fix mobile V8 (12 novembre 2026)
 
-Aggiornamento dell'ultima versione V6 senza cambiare le foto, la struttura commerciale, i loghi o i contenuti SEO.
+Questa versione corregge la deformazione della fotografia nel primo schermo su Safari iPhone: la foto è sempre un elemento IMG con object-fit:cover e zoom CSS uniforme. Il canvas trasparente produce soltanto il vortice.
 
-## Correzioni
-- Immagine originale con proporzioni corrette su smartphone.
-- Animazione scorrimento native desktop e scroll touch sul sito pubblicato.
-- Gesti touch sulla prima schermata collegati direttamente al progresso del video-scrub (anche in visualizzatori che non comunicano lo scroll nativo alla pagina).
-- Barra di avanzamento trascinabile con dito per avanzare/riavvolgere.
-- Link di prosecuzione dopo il vortice.
-- Rispetto del sistema Riduci movimento: avvia le animazioni soltanto quando l'utente tocca/scorre intenzionalmente sulla scena.
-- Cache busting degli script e stili V7.
+Per pubblicare: crea un nuovo deployment su Vercel caricando il contenuto di questa cartella (index.html, assets/, pagine e vercel.json) nella ROOT del progetto.
 
-## Importante per iPhone
-Le preview HTML aperte all'interno di ChatGPT / anteprima File iOS potrebbero non autorizzare JavaScript. In tal caso nessuna animazione HTML può funzionare dalla preview del file: per provare lo scroll reale su iPhone apri la pagina **tramite un URL HTTPS** (ad esempio in preview su Vercel) in Safari. Non si tratta di un problema dello zoom: è una limitazione del visualizzatore. In Safari pubblicato la pagina riceve normalmente eventi touch e scroll. Questa versione aggiunge in più un controllo manuale tramite trascinamento sulla scena e sulla barra.
+Per verificare: in Safari su iPhone apri https://alancollura.com/?v=8 dopo il deployment. Se si vede ancora la foto distorta, il deployment non è stato applicato oppure è servita una versione precedente dalla cache. Controlla che il sorgente HTML richiami cinematic.css?v=8 e cinematic.js?v=8.
 
-Nessun cambiamento apportato al sito online.
+La ZIP contiene tutte le pagine e gli asset precedenti. SEO e consenso GA4 invariati. Non viene effettuata alcuna pubblicazione dal file ZIP.
